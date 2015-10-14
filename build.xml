@@ -15,19 +15,8 @@
  <tstamp>
   <format property="NOW" pattern="yyyy.MM.dd-HH.mm.ss" /> 
   </tstamp>
- <exec outputproperty="svna.version" executable="svnversion">
-  <arg value="-c" /> 
- <redirector>
- <outputfilterchain>
- <tokenfilter>
-  <replaceregex pattern="^[0-9]*:?" replace="" flags="g" /> 
-  <replaceregex pattern="M" replace="" flags="g" /> 
-  </tokenfilter>
-  </outputfilterchain>
-  </redirector>
-  </exec>
  <manifest file="src/conf/MANIFEST.MF">
-  <attribute name="Weblogic-Application-Version" value="Rev${svna.version}_Build-${NOW}" /> 
+  <attribute name="Application-Version" value="Build-${NOW}" /> 
   </manifest>
   </target>
     <!--

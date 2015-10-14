@@ -118,7 +118,13 @@ public class WSDLCreatorWorker implements ISpecialWorker {
     @Override
     public String getAnswer() throws SoapExceptionServer {
         try {
-            URL alienShip = new URL("http://" + this.request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + request.getServletPath());
+            URL alienShip;
+            if ("0:0:0:0:0:0:0:1".equals(request.getLocalAddr())) {
+                alienShip = new URL(request.isSecure() ? "https://" : "http://" + "localhost:" + request.getLocalPort() + request.getContextPath() + request.getServletPath());
+            }
+            else {
+                alienShip = new URL(request.isSecure() ? "https://" : "http://" + this.request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + request.getServletPath());
+            }
             WSDLBuilder wsdlBuilder = WSDLBuilder.getInstance(alienShip);
             workResult = wsdlBuilder.makeWSDLFromInOutMaps(methodDescription, methodList);
             return workResult;
